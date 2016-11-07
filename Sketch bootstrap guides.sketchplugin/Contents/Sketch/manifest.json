@@ -1,0 +1,24 @@
+{
+    "name" : "Sketch bootstrap guides",
+    "identifier" : "me.tomoyukikashiro.sketch_bootstrap_guides",
+    "version" : "1.0.0",
+    "description" : "generate guides along with twitter bootstrap grid system.",
+    "authorEmail" : "ksrtmyk@gmail.com",
+    "author" : "Tomoyuki Kashiro",
+    "commands" : [
+    {
+      "script" : "main.js",
+      "handler" : "generateTwbs3Guide",
+      "shortcut" : "",
+      "name" : "Generate Twbs3 Guides",
+      "identifier" : "generateTwbs3Guide"
+    },
+    {
+      "script" : "main.js",
+      "handler" : "generateTwbs4Guide",
+      "shortcut" : "",
+      "name" : "Generate Twbs4 Guides",
+      "identifier" : "generateTwbs4Guide"
+    }
+  ]
+}
