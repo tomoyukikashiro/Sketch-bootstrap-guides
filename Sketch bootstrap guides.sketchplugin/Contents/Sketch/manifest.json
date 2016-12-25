@@ -1,7 +1,7 @@
 {
     "name" : "Sketch bootstrap guides",
     "identifier" : "me.tomoyukikashiro.sketch_bootstrap_guides",
-    "version" : "1.0.0",
+    "version" : "1.1.0",
     "description" : "generate guides along with twitter bootstrap grid system.",
     "authorEmail" : "ksrtmyk@gmail.com",
     "author" : "Tomoyuki Kashiro",
