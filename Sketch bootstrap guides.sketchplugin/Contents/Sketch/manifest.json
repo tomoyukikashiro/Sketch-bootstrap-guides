@@ -8,6 +8,27 @@
     "commands" : [
     {
       "script" : "main.js",
+      "handler" : "removeAllGuides",
+      "shortcut" : "",
+      "name" : "Remove All Guides",
+      "identifier" : "removeAllGuides"
+    },
+    {
+      "script" : "main.js",
+      "handler" : "removeHorizontalGuides",
+      "shortcut" : "",
+      "name" : "Remove Horizontal Guides",
+      "identifier" : "removeHorizontalGuides"
+    },
+    {
+      "script" : "main.js",
+      "handler" : "removeVerticalGuides",
+      "shortcut" : "",
+      "name" : "Remove Vertical Guides",
+      "identifier" : "removeVerticalGuides"
+    },
+    {
+      "script" : "main.js",
       "handler" : "generateTwbs3Guide",
       "shortcut" : "",
       "name" : "Generate Twbs3 Guides",

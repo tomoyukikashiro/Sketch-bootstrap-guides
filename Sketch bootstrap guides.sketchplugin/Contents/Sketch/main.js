@@ -120,6 +120,22 @@ var Twbs4 = extend(Twbs, {
 });
 
 
+function removeAllGuides(context) {
+  removeHorizontalGuides(context);
+  removeVerticalGuides(context);
+}
+function removeHorizontalGuides(context) {
+  var doc = context.document;
+  var page = doc.currentPage();
+  var artBoard = page.currentArtboard();
+  removeGuides(artBoard.horizontalRulerData());
+}
+function removeVerticalGuides(context) {
+  var doc = context.document;
+  var page = doc.currentPage();
+  var artBoard = page.currentArtboard();
+  removeGuides(artBoard.verticalRulerData());
+}
 function generateTwbs3Guide(context) {
   generateGuide(context, Twbs3)
 }
@@ -132,6 +148,13 @@ function generateTwbs4Guide(context) {
 }
 function generateTwbs4FluidGuide(context) {
   generateGuide(context, Twbs4, true)
+}
+
+
+function removeGuides(guideData) {
+  while (guideData.numberOfGuides() > 0) {
+    guideData.removeGuideAtIndex(0);
+  }
 }
 
 function generateGuide(context, twbs, isFluid) {
