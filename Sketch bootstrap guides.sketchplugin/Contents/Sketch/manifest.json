@@ -15,10 +15,24 @@
     },
     {
       "script" : "main.js",
+      "handler" : "generateTwbs3FluidGuide",
+      "shortcut" : "",
+      "name" : "Generate Twbs3 Fluid Guides",
+      "identifier" : "generateTwbs3FluidGuide"
+    },
+    {
+      "script" : "main.js",
       "handler" : "generateTwbs4Guide",
       "shortcut" : "",
       "name" : "Generate Twbs4 Guides",
       "identifier" : "generateTwbs4Guide"
+    },
+    {
+      "script" : "main.js",
+      "handler" : "generateTwbs4FluidGuide",
+      "shortcut" : "",
+      "name" : "Generate Twbs4 Fluid Guides",
+      "identifier" : "generateTwbs4FluidGuide"
     }
   ]
 }

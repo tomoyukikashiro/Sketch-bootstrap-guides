@@ -98,12 +98,18 @@ var Twbs4 = extend(Twbs, {
 function generateTwbs3Guide(context) {
   generateGuide(context, Twbs3)
 }
+function generateTwbs3FluidGuide(context) {
+  generateGuide(context, Twbs3, true)
+}
 
 function generateTwbs4Guide(context) {
   generateGuide(context, Twbs4)
 }
+function generateTwbs4FluidGuide(context) {
+  generateGuide(context, Twbs4, true)
+}
 
-function generateGuide(context, twbs) {
+function generateGuide(context, twbs, isFluid) {
   this.context = context;
   this.doc = this.context.document;
   this.page = this.doc.currentPage();
@@ -121,7 +127,7 @@ function generateGuide(context, twbs) {
     return;
   }
 
-  var twbsContainerWidth = twbs.getContainerWidth(this.artBoard.frame().width());
+  var twbsContainerWidth = isFluid ? this.artBoard.frame().width() : twbs.getContainerWidth(this.artBoard.frame().width());
   var guideX = (this.artBoard.frame().width() / 2) - (twbsContainerWidth / 2);
   var cellWidth = (twbsContainerWidth / twbs.COLUMN_NUM) - (twbs.GUTTER_WIDTH * 2);
 
