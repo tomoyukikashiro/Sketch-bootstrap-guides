@@ -55,5 +55,22 @@
       "name" : "Generate Twbs4 Fluid Guides",
       "identifier" : "generateTwbs4FluidGuide"
     }
-  ]
+  ],
+  "menu": {
+      "isRoot": true,
+      "items": [
+          {
+            "title" : "bootstrap guides",
+            "items" : [
+              "removeAllGuides",
+              "removeHorizontalGuides",
+              "removeVerticalGuides",
+              "generateTwbs3Guide",
+              "generateTwbs3FluidGuide",
+              "generateTwbs4Guide",
+              "generateTwbs4FluidGuide"
+            ]
+          }
+      ]
+  }
 }
