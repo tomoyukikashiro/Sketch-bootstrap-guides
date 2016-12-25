@@ -41,9 +41,28 @@ function showMessage(message) {
   userInput.runModal();
 }
 
+function createSelect(msg, items){
+  var itemsCount = items.length
+
+  var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25))
+  accessory.addItemsWithObjectValues(items)
+  accessory.selectItemAtIndex(0)
+
+  var alert = NSAlert.alloc().init()
+  alert.setMessageText(msg)
+  alert.addButtonWithTitle('OK')
+  alert.addButtonWithTitle('Cancel')
+  alert.setAccessoryView(accessory)
+
+  return {
+    responseCode: alert.runModal(),
+    value: accessory.objectValue()
+  }
+}
+
 var Twbs = {
-  COLUMN_NUM: 12,
   GUTTER_WIDTH: 15,
+  MINIMUM_WIDTH_FOR_12CULUMN: undefined,
   getGridKey: function(width) {
     if (width >=  this.grid.xl) {
       return 'xl';
@@ -62,10 +81,15 @@ var Twbs = {
    */
   getContainerWidth: function(width) {
     return this.container[this.getGridKey(width)];
+  },
+  canUse12Column: function(outerWidth) {
+    var minWidthFor12Column = this.grid[this.MINIMUM_WIDTH_FOR_12CULUMN];
+    return outerWidth >= minWidthFor12Column;
   }
 };
 
 var Twbs3 = extend(Twbs, {
+  MINIMUM_WIDTH_FOR_12CULUMN: 'sm',
   grid: {
     sm: 768,
     md: 992,
@@ -79,6 +103,7 @@ var Twbs3 = extend(Twbs, {
 });
 
 var Twbs4 = extend(Twbs, {
+  MINIMUM_WIDTH_FOR_12CULUMN: 'md',
   isVersion4: true,
   grid: {
     sm: 576,
@@ -119,27 +144,34 @@ function generateGuide(context, twbs, isFluid) {
     showMessage('This plugin needs Artboard.');
     return;
   }
-  if (twbs.isVersion4 && (twbs.getGridKey(this.artBoard.frame().width()) === 'xs') || (twbs.getGridKey(this.artBoard.frame().width()) === 'sm')){
-    showMessage('This plugin needs ' + twbs.grid.md + 'px width at least.');
-    return;
-  } else if (twbs.getGridKey(this.artBoard.frame().width()) === 'xs') {
-    showMessage('This plugin needs ' + twbs.grid.sm + 'px width at least.');
-    return;
+  if (twbs.getGridKey(this.artBoard.frame().width()) === 'xs') {
+    // twbs use 100% width container in this case.
+    isFluid = true;
   }
-
   var twbsContainerWidth = isFluid ? this.artBoard.frame().width() : twbs.getContainerWidth(this.artBoard.frame().width());
+  var columnNum;
+  if (twbs.canUse12Column(twbsContainerWidth)) {
+    columnNum =  12;
+  } else {
+    var res = createSelect('How many columns do you want to use?', [6,4,3,2]);
+    if (res.responseCode === 1001) {
+      // cancel
+      return;
+    }
+    columnNum = parseInt(res.value, 10);
+  }
   var guideX = (this.artBoard.frame().width() / 2) - (twbsContainerWidth / 2);
-  var cellWidth = (twbsContainerWidth / twbs.COLUMN_NUM) - (twbs.GUTTER_WIDTH * 2);
+  var cellWidth = (twbsContainerWidth / columnNum) - (twbs.GUTTER_WIDTH * 2);
 
   var artBoardHRuler = this.artBoard.horizontalRulerData();
   artBoardHRuler.addGuideWithValue(guideX);
-  for (var i = 0;  twbs.COLUMN_NUM > i; i++) {
+  for (var i = 0; columnNum > i; i++) {
     guideX += twbs.GUTTER_WIDTH;
     artBoardHRuler.addGuideWithValue(guideX);
     guideX += cellWidth;
     artBoardHRuler.addGuideWithValue(guideX);
     guideX += twbs.GUTTER_WIDTH;
-    if (i == twbs.COLUMN_NUM - 1) {
+    if (i == columnNum - 1) {
       artBoardHRuler.addGuideWithValue(guideX);
     }
   }
